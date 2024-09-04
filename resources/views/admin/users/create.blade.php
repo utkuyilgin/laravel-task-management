@@ -26,18 +26,11 @@
 
             </div>
         </div>
-
-
-
         <div class="card-box mb-30">
-
             <div class="pb-20">
-
                 <a href="{{route('admin.user.index')}}" class="btn btn-danger btn-sm backbutton" role="button" aria-pressed="true">
-
                     <span class="icon-copy ti-control-backward"></span>
                     Back</a>
-
             </div>
         </div>
         <form>
@@ -48,35 +41,30 @@
                     <input required value="" class="form-control" name="name" type="text" placeholder="">
                 </div>
             </div>
-
             <div class="form-group row">
                 <label class="col-sm-12 col-md-2 col-form-label">Email</label>
                 <div class="col-sm-12 col-md-10">
                     <input required value="" class="form-control" name="email" type="email" placeholder="">
                 </div>
             </div>
-
             <div class="form-group row">
                 <label class="col-sm-12 col-md-2 col-form-label">Password</label>
                 <div class="col-sm-12 col-md-10">
                     <input required value="" class="form-control" name="password" type="password" placeholder="Enter your password">
                 </div>
             </div>
-
             <div class="form-group row">
                 <label class="col-sm-12 col-md-2 col-form-label">Password Confirmation</label>
                 <div class="col-sm-12 col-md-10">
                     <input required value="" class="form-control" name="password_confirmation" type="password" placeholder="">
                 </div>
             </div>
-
             <div class="form-group row">
                 <label class="col-sm-12 col-md-2 col-form-label">Roles</label>
                 <div class="col-sm-12 col-md-10">
                     <select required class="custom-select col-12 js-example-basic-multiple" name="role_ids[]" multiple="multiple">
-                        
                         @foreach($roles as $role)
-                        <option value="{{$role->id}}">{{$role->name}}</option>
+                            <option value="{{$role->id}}">{{$role->name}}</option>
                         @endforeach
                     </select>
                 </div>
@@ -90,7 +78,6 @@
 
 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-
 
 <script> 
 $(document).ready(function() {

@@ -26,7 +26,6 @@
                 </div>
             </div>
         </div>
-      
         <div class="card-box mb-30">
             <div class="pb-20">
                 <table class="table" id="projectTable">
@@ -51,6 +50,7 @@
 @section('js')
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
 <script src="https://cdn.datatables.net/plug-ins/1.10.21/dataRender/datetime.js" charset="utf8"></script>
+
 <script>
 $(document).ready(function () {
 

@@ -27,7 +27,6 @@
                 </div>
             </div>
         </div>
-
         <div class="card-box mb-30">
             <div class="pb-20">
                 <table class="table" id="usersTable">

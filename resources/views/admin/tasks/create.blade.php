@@ -23,28 +23,15 @@
                         </ol>
                     </nav>
                 </div>
-
             </div>
         </div>
-
-
-
         <div class="card-box mb-30">
-
             <div class="pb-20">
-
                 <a href="{{route('admin.user.index')}}" class="btn btn-danger btn-sm backbutton" role="button" aria-pressed="true">
-
                     <span class="icon-copy ti-control-backward"></span>
                     Back</a>
-
             </div>
         </div>
-
-
-        <!-- Form Start -->
-
-
         <form>
             @csrf
             <div class="form-group row">
@@ -53,32 +40,26 @@
                     <input required value="" class="form-control" name="name" type="text" placeholder="">
                 </div>
             </div>
-
             <div class="form-group row">
                 <label class="col-sm-12 col-md-2 col-form-label">Description</label>
                 <div class="col-sm-12 col-md-10">
                     <input required value="" class="form-control" name="description" type="text" placeholder="">
                 </div>
             </div>
-
             <div class="form-group row">
                 <label class="col-sm-12 col-md-2 col-form-label">Project</label>
                 <div class="col-sm-12 col-md-10">
                     <select required class="form-control" name="project_id">
                         @foreach($projects as $project)
                         <option
-                        
                         @if ($project->id == $currentProject->id)
                             selected
-                            
                         @endif
-
                         value="{{$project->id}}">{{$project->name}}</option>
                         @endforeach
                     </select>
                 </div>
             </div>
-
             <div class="form-group row">
                 <label class="col-sm-12 col-md-2 col-form-label">Status</label>
                 <div class="col-sm-12 col-md-10">
@@ -89,21 +70,9 @@
                     </select>
                 </div>
             </div>
-
-           
-
             <input id="send" type="submit" class="btn btn-success addbutton" value="Save">
-
-
         </form>
-
-
-        <!-- Form End -->
-
     </div>
-
-
-
 </div>
 @endsection
 @section('js')

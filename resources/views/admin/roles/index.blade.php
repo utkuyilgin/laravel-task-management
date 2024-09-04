@@ -22,7 +22,6 @@
                 </div>
             </div>
         </div>
-
         <div class="card-box mb-30">
             <div class="pb-20">
                 <table class="table" id="rolesTable">
@@ -42,9 +41,7 @@
     </div>
 </div>
 @endsection
-
 @section('js')
-    
     <script>
         $(document).ready(function () {
             fetchData({
@@ -67,8 +64,6 @@
                     }
                 ]
             });
-
-
             window.confirmDelete = function (id) {
                 if (confirm("Are you sure you want to delete this role?")) {
                     deleteData({

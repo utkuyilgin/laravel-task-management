@@ -16,7 +16,6 @@
                             <li class="breadcrumb-item active" aria-current="page">
                                 Project
                             </li>
-                            
                             <li class="breadcrumb-item active" aria-current="page">
                                 Edit
                             </li>
@@ -26,22 +25,13 @@
 
             </div>
         </div>
-
-
-
         <div class="card-box mb-30">
-
             <div class="pb-20">
-
                 <a href="{{route('admin.role.index')}}" class="btn btn-danger btn-sm backbutton" role="button" aria-pressed="true">
-
                     <span class="icon-copy ti-control-backward"></span>
                     Back</a>
-
             </div>
         </div>
-
-
         <form>
             @csrf
             <div class="form-group row">
@@ -50,26 +40,16 @@
                     <input class="form-control" name="name" type="text" placeholder="" value="{{ $project->name}}">
                 </div>
             </div>
-
             <div class="form-group row">
                 <label class="col-sm-12 col-md-2 col-form-label">Description</label>
                 <div class="col-sm-12 col-md-10">
                     <textarea class="form-control" name="description" rows="5">{!! $project->description !!}</textarea>
                 </div>
             </div>
-
             <input id="send" type="submit" class="btn btn-success addbutton" value="Save">
-
-
         </form>
-
-
         <!-- Form End -->
-
     </div>
-
-
-
 </div>
 @endsection
 @section('js')

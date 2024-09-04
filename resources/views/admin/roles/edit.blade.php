@@ -23,31 +23,17 @@
                         </ol>
                     </nav>
                 </div>
-
             </div>
         </div>
-
-
-
         <div class="card-box mb-30">
-
             <div class="pb-20">
-
                 <a href="{{route('admin.role.index')}}" class="btn btn-danger btn-sm backbutton" role="button" aria-pressed="true">
-
                     <span class="icon-copy ti-control-backward"></span>
                     Back</a>
-
             </div>
         </div>
-
-
-        <!-- Form Start -->
-
-
         <form>
             @csrf
-        
                 <div class="row">
                     <div class="col-xs-12 col-sm-12 col-md-12">
                         <div class="form-group">
@@ -73,7 +59,6 @@
                                 @if($count % 3 == 0)
                                     <div class="row">
                                         @endif
-
                                         <div class="col-md-4">
                                             <div class="container">
                                                 <h4 style="margin-bottom: 10px;">{{ ucfirst($index) }}</h4>
@@ -88,7 +73,6 @@
                                                 </ul>
                                             </div>
                                         </div>
-
                                         @if($count % 3 == 2 || $loop->last)
                                     </div>
                                 @endif
@@ -99,17 +83,8 @@
                         </div>
                     </div>
             <input id="send" type="submit" class="btn btn-success addbutton" value="Save">
-
-
         </form>
-
-
-        <!-- Form End -->
-
     </div>
-
-
-
 </div>
 @endsection
 @section('js')
