@@ -23,10 +23,10 @@ npm install
 
 ## To Run project on Docker;
 
-sail up
+sail up -d
 
 ## If sail up not works
-./vendor/bin/sail up
+./vendor/bin/sail up -d
 
 ## Or you can define alias such like
 alias sail='sh $([ -f sail ] && echo sail || echo vendor/bin/sail)'
