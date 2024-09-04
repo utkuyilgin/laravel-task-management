@@ -1,0 +1,12 @@
+.addbutton{
+    float: right;
+    margin-right: 10px;
+}
+
+.backbutton{
+    float: left;
+    margin-right: 10px;
+}
+.activatedBtn{
+    cursor: pointer;
+}

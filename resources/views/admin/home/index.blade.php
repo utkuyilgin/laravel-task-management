@@ -1,0 +1,108 @@
+@extends('admin.master')
+@section('content')
+<div class="pd-ltr-20 xs-pd-20-10">
+    <div class="min-height-200px">
+        <div class="page-header">
+            <div class="row">
+                <div class="col-md-6 col-sm-12">
+                    <div class="title">
+                        <h4>Projects</h4>
+                    </div>
+                    <nav aria-label="breadcrumb" role="navigation">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item">
+                                <a href="{{url('dashboard')}}">Home</a>
+                            </li>
+                            <li class="breadcrumb-item active" aria-current="page">
+                                Projects
+                            </li>
+                        </ol>
+                    </nav>
+                    <div class="pb-20 mt-15">
+                        <a href="{{route('admin.project.create')}}" class="btn btn-primary btn-sm backbutton" role="button" aria-pressed="true">
+                            <span class="icon-copy ti-plus"></span>
+                            Add Project</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+      
+        <div class="card-box mb-30">
+            
+            <div class="pb-20">
+                
+                <table class="table" id="projectTable">
+                    <thead>
+                        <tr>
+                            <th class="table-plus datatable-nosort">Name</th>
+                            <th>Created At</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="projectTableBody">
+                        <!-- Rows will be populated by JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <!-- Export Datatable End -->
+    </div>
+</div>
+
+<!-- Edit Modal -->
+
+
+  
+@endsection
+@section('js')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
+<script src="https://cdn.datatables.net/plug-ins/1.10.21/dataRender/datetime.js" charset="utf8"></script>
+<script>
+$(document).ready(function () {
+
+
+
+fetchData({
+    endpoint: '{{ url('api/fetchProjects') }}',
+    tableId: 'projectTable',
+    tableBodyId: 'projectTableBody',
+    columns: [
+        { key: 'name', render: item => `<span class="table-plus">${item.name}</span>` },
+        { key: 'created_at', render: item => moment(item.created_at).format('MMMM Do YYYY, h:mm:ss a') },
+        { 
+            key: 'id', 
+            render: item => `
+            <a href="{{ url('dashboard/tasks') }}/${item.id}" class="badge badge-primary">
+                    <i class="bi-pencil"></i> Tasks
+                </a>
+                <a href="{{ url('dashboard/edit/project') }}/${item.id}" class="badge badge-primary">
+                    <i class="bi-pencil"></i> Edit
+                </a>
+                <a href="#" class="badge badge-danger" onclick="confirmDelete(${item.id}, '{{ url('api/fetchProjects') }}')">
+                    <i class="bi-trash"></i> Delete
+                </a>
+            ` 
+        }
+    ]
+});
+    
+
+window.confirmDelete = function (id, endpoint) {
+    if (confirm("Are you sure you want to delete this item?")) {
+        window.location.href = `${endpoint.replace('/fetch', '/delete')}/${id}`;
+    }
+};
+
+// Export the fetchData function
+window.fetchData = fetchData;
+});
+
+
+function confirmDelete(id){
+    if(confirm("Are you sure you want to delete this project?")){
+        window.location.href = "{{url('dashboard/delete/project')}}/"+id;
+    }
+}
+
+</script>
+@endsection
