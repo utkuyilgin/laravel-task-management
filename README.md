@@ -49,6 +49,7 @@ password = password
 
 ## For Unit Tests Run;
 
+mkdir -p tests/Unit
 sail artisan test
 
 

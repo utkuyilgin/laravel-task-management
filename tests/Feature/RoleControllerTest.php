@@ -137,7 +137,7 @@ class RoleControllerTest extends TestCase
             ->once()
             ->with($role->id);
 
-        $response = $this->get(route('api.role.destroy', ['id' => $role->id]));
+        $response = $this->post(route('api.role.destroy', ['id' => $role->id]));
 
         $response->assertStatus(200);
 

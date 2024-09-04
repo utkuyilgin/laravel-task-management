@@ -62,6 +62,8 @@ class UserControllerTest extends TestCase
         $data = [
             'name' => 'John Doe',
             'email' => 'test@example.com',
+            'password' => 'password',
+            'password_confirmation' => 'password',
         ];
 
         $this->mockRepository
