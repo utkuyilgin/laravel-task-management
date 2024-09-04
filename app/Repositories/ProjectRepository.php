@@ -31,6 +31,8 @@ class ProjectRepository implements ProjectRepositoryInterface
     public function delete($id)
     {
         $project = $this->find($id);
+        $project->tasks()->delete();
+    
         return $project->delete();
     }
 }

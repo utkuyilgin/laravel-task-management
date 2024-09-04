@@ -52,7 +52,7 @@
                     <div class="col-xs-12 col-sm-12 col-md-12">
                         <div class="form-group">
                             <strong>Name:</strong>
-                            <input type="text" name="name" class="form-control" value="{{$role->name}}">
+                            <input required type="text" name="name" class="form-control" value="{{$role->name}}">
                         </div>
                     </div>
                     <div class="col-xs-12 col-sm-12 col-md-12">

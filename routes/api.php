@@ -44,7 +44,7 @@ Route::group(['middleware' => 'auth:web'], function () {
     Route::get('/fetchRoles', [RoleController::class, 'fetchRoles'])->name('api.role.fetchRoles');
     Route::post('/create/role', [RoleController::class, 'store'])->name('api.role.store');
     Route::post('/update/role/{id}', [RoleController::class, 'update'])->name('api.role.update');
-    Route::get('/delete/role/{id}', [RoleController::class, 'destroy'])->name('api.role.destroy');
+    Route::post('/delete/role/{id}', [RoleController::class, 'destroy'])->name('api.role.destroy');
 
 });
 

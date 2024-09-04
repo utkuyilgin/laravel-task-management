@@ -13,6 +13,10 @@ class TaskController extends Controller
     public function __construct(TaskRepositoryInterface $taskRepository)
     {
         $this->taskRepository = $taskRepository;
+        $this->middleware('permission:create task', ['only' => ['store']]);
+        $this->middleware('permission:update task', ['only' => ['update']]);
+        $this->middleware('permission:delete task', ['only' => ['destroy']]);
+        $this->middleware('permission:view task', ['only' => ['index', 'show', 'fetchTasks', 'fetchTasksByProject']]);
     }
 
     public function store(Request $request)

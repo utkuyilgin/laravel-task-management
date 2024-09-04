@@ -45,21 +45,35 @@
             <div class="form-group row">
                 <label class="col-sm-12 col-md-2 col-form-label">Name</label>
                 <div class="col-sm-12 col-md-10">
-                    <input value="" class="form-control" name="name" type="text" placeholder="">
+                    <input required value="" class="form-control" name="name" type="text" placeholder="">
                 </div>
             </div>
 
             <div class="form-group row">
                 <label class="col-sm-12 col-md-2 col-form-label">Email</label>
                 <div class="col-sm-12 col-md-10">
-                    <input value="" class="form-control" name="email" type="email" placeholder="">
+                    <input required value="" class="form-control" name="email" type="email" placeholder="">
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm-12 col-md-2 col-form-label">Password</label>
+                <div class="col-sm-12 col-md-10">
+                    <input required value="" class="form-control" name="password" type="password" placeholder="Enter your password">
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm-12 col-md-2 col-form-label">Password Confirmation</label>
+                <div class="col-sm-12 col-md-10">
+                    <input required value="" class="form-control" name="password_confirmation" type="password" placeholder="">
                 </div>
             </div>
 
             <div class="form-group row">
                 <label class="col-sm-12 col-md-2 col-form-label">Roles</label>
                 <div class="col-sm-12 col-md-10">
-                    <select class="custom-select col-12 js-example-basic-multiple" name="role_ids[]" multiple="multiple">
+                    <select required class="custom-select col-12 js-example-basic-multiple" name="role_ids[]" multiple="multiple">
                         
                         @foreach($roles as $role)
                         <option value="{{$role->id}}">{{$role->name}}</option>
@@ -87,13 +101,17 @@ $(document).ready(function() {
         var name = $('input[name="name"]').val();
         var email = $('input[name="email"]').val();
         var role_ids = $('select[name="role_ids[]"]').val();
+        var password = $('input[name="password"]').val();
+        var password_confirmation = $('input[name="password_confirmation"]').val();
         
         postData({
             endpoint: '{{ url('api/create/user') }}',
             data: {
                 name: name,
                 email: email,
-                role_ids: role_ids
+                role_ids: role_ids,
+                password: password,
+                password_confirmation: password_confirmation
             },
             redirect: '{{ url('dashboard/users') }}'
         });

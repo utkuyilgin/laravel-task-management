@@ -24,10 +24,12 @@ class UserController extends Controller
 
     public function store(Request $request)
     {
+        
         $request->validate([
             'name' => 'required',
             'email' => 'required|email',
             'role_ids' => 'nullable|array',
+            'password' => 'required|confirmed',
         ]);
 
         $user = $this->userRepository->create($request->all());

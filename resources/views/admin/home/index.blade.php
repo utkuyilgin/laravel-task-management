@@ -28,9 +28,7 @@
         </div>
       
         <div class="card-box mb-30">
-            
             <div class="pb-20">
-                
                 <table class="table" id="projectTable">
                     <thead>
                         <tr>
@@ -48,61 +46,81 @@
         <!-- Export Datatable End -->
     </div>
 </div>
-
-<!-- Edit Modal -->
-
-
-  
 @endsection
+
 @section('js')
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
 <script src="https://cdn.datatables.net/plug-ins/1.10.21/dataRender/datetime.js" charset="utf8"></script>
 <script>
 $(document).ready(function () {
 
+    // Initialize and fetch projects
+    fetchProjects();
 
+    // Fetch projects and populate table
+    function fetchProjects() {
+        fetchData({
+            endpoint: '{{ url("api/fetchProjects") }}',
+            tableId: 'projectTable',
+            tableBodyId: 'projectTableBody',
+            columns: [
+                { key: 'name', render: item => `<span class="table-plus">${item.name}</span>` },
+                { key: 'created_at', render: item => moment(item.created_at).format('MMMM Do YYYY, h:mm:ss a') },
+                { 
+                    key: 'id', 
+                    render: item => generateActionButtons(item)
+                }
+            ]
+        });
+    }
 
-fetchData({
-    endpoint: '{{ url('api/fetchProjects') }}',
-    tableId: 'projectTable',
-    tableBodyId: 'projectTableBody',
-    columns: [
-        { key: 'name', render: item => `<span class="table-plus">${item.name}</span>` },
-        { key: 'created_at', render: item => moment(item.created_at).format('MMMM Do YYYY, h:mm:ss a') },
-        { 
-            key: 'id', 
-            render: item => `
-            <a href="{{ url('dashboard/tasks') }}/${item.id}" class="badge badge-primary">
+    // Generate action buttons HTML
+    function generateActionButtons(item) {
+        return `
+            @can('view task')
+                <a href="{{ url('dashboard/tasks') }}/${item.id}" class="badge badge-primary">
                     <i class="bi-pencil"></i> Tasks
                 </a>
+            @endcan
+            
                 <a href="{{ url('dashboard/edit/project') }}/${item.id}" class="badge badge-primary">
                     <i class="bi-pencil"></i> Edit
                 </a>
-                <a href="#" class="badge badge-danger" onclick="confirmDelete(${item.id}, '{{ url('api/fetchProjects') }}')">
+            
+            
+                <a href="#" class="badge badge-danger" onclick="confirmDelete(${item.id}, '{{ url('api/deleteProject') }}')">
                     <i class="bi-trash"></i> Delete
-                </a>
-            ` 
+                </a>    
+            
+        `;
+    }
+
+    // Confirm delete with a modal
+    window.confirmDelete = function (id, endpoint) {
+        if (confirm("Are you sure you want to delete this item?")) {
+            deleteData({
+                endpoint: '{{ url('api/delete/project') }}',
+                id: id,
+                fetchConfig: {
+                    endpoint: '{{ url("api/fetchProjects") }}',
+                    tableId: 'projectTable',
+                    tableBodyId: 'projectTableBody',
+                    columns: [
+                        { key: 'name', render: item => `<span class="table-plus">${item.name}</span>` },
+                        { key: 'created_at', render: item => moment(item.created_at).format('MMMM Do YYYY, h:mm:ss a') },
+                        { 
+                            key: 'id', 
+                            render: item => generateActionButtons(item)
+                        }
+                    ]
+                }
+            });
         }
-    ]
-});
+    };
+
+   
+
     
-
-window.confirmDelete = function (id, endpoint) {
-    if (confirm("Are you sure you want to delete this item?")) {
-        window.location.href = `${endpoint.replace('/fetch', '/delete')}/${id}`;
-    }
-};
-
-// Export the fetchData function
-window.fetchData = fetchData;
 });
-
-
-function confirmDelete(id){
-    if(confirm("Are you sure you want to delete this project?")){
-        window.location.href = "{{url('dashboard/delete/project')}}/"+id;
-    }
-}
-
 </script>
 @endsection

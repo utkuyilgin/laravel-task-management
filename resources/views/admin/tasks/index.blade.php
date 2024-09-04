@@ -82,14 +82,38 @@ $(document).ready(function () {
     });
         
 
-    window.confirmDelete = function (id, endpoint) {
-        if (confirm("Are you sure you want to delete this item?")) {
-            window.location.href = `${endpoint.replace('/fetch', '/delete')}/${id}`;
+    window.confirmDelete = function (id) {
+        if (confirm("Are you sure you want to delete this role?")) {
+            deleteData({
+                endpoint: '{{ url('api/delete/task') }}',
+                id: id,
+                fetchConfig: {
+                    endpoint: '{{ url('api/fetchTasks') }}' + '/' + project_id,
+                    tableId: 'taskTable',
+                    columns: [
+                        { key: 'name', render: item => `<span class="table-plus">${item.name}</span>` },
+                        { key: 'project.name', render: item => item.project.name },
+                        { key: 'created_at', render: item => moment(item.created_at).format('MMMM Do YYYY, h:mm:ss a') },
+                        { 
+                            key: 'id', 
+                            render: item => `
+                                <a href="{{ url('dashboard/edit/task') }}/${item.id}" class="badge badge-primary">
+                                    <i class="bi-pencil"></i> Edit
+                                </a>
+                                <a href="#" class="badge badge-danger" onclick="confirmDelete(${item.id}, '{{ url('api/fetchTasks') }}')">
+                                    <i class="bi-trash"></i> Delete
+                                </a>
+                            ` 
+                        }
+                    ]
+                }
+            });
         }
     };
 
     // Export the fetchData function
     window.fetchData = fetchData;
+    window.deleteData = deleteData;
 });
 
 </script>

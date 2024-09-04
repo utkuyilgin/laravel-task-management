@@ -67,6 +67,35 @@
                     }
                 ]
             });
+
+
+            window.confirmDelete = function (id) {
+                if (confirm("Are you sure you want to delete this role?")) {
+                    deleteData({
+                        endpoint: '{{ url('api/delete/role') }}',
+                        id: id,
+                        fetchConfig: {
+                            endpoint: '{{ url('api/fetchRoles') }}',
+                            tableId: 'rolesTable',
+                            columns: [
+                                { key: 'name', render: item => `<span class="table-plus">${item.name}</span>` },
+                                { key: 'created_at', render: item => moment(item.created_at).format('MMMM Do YYYY, h:mm:ss a') },
+                                { 
+                                    key: 'id', 
+                                    render: item => `
+                                        <a href="{{ url('dashboard/edit/role') }}/${item.id}" class="badge badge-primary">
+                                            <i class="bi-pencil"></i> Edit
+                                        </a>
+                                        <a href="#" class="badge badge-danger" onclick="confirmDelete(${item.id})">
+                                            <i class="bi-trash"></i> Delete
+                                        </a>
+                                    ` 
+                                }
+                            ]
+                        }
+                    });
+                }
+            };
         });
     </script>
 @endsection

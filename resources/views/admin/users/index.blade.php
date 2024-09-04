@@ -19,6 +19,11 @@
                             </li>
                         </ol>
                     </nav>
+                    <div class="pb-20 mt-15">
+                        <a href="{{route('admin.user.create')}}" class="btn btn-primary btn-sm backbutton" role="button" aria-pressed="true">
+                            <span class="icon-copy ti-plus"></span>
+                            Add User</a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -68,6 +73,35 @@
                     }
                 ]
             });
+
+            window.confirmDelete = function (id) {
+                if (confirm("Are you sure you want to delete this user?")) {
+                    deleteData({
+                        endpoint: '{{ url('api/delete/user') }}',
+                        id: id,
+                        fetchConfig: {
+                            endpoint: '{{ url('api/fetchUsers') }}',
+                            tableId: 'usersTable',
+                            columns: [
+                                { key: 'name', render: item => `<span class="table-plus">${item.name}</span>` },
+                                { key: 'email' },
+                                { key: 'created_at' },
+                                { 
+                                    key: 'id', 
+                                    render: item => `
+                                        <a href="{{ url('dashboard/edit/user') }}/${item.id}" class="badge badge-primary">
+                                            <i class="bi-pencil"></i> Edit
+                                        </a>
+                                        <a href="#" class="badge badge-danger" onclick="confirmDelete(${item.id}, '{{ url('dashboard/fetchUsers') }}')">
+                                            <i class="bi-trash"></i> Delete
+                                        </a>
+                                    ` 
+                                }
+                            ]
+                        }
+                    });
+                }
+            };
         });
     </script>
 @endsection

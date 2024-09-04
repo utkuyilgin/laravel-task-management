@@ -50,21 +50,21 @@
             <div class="form-group row">
                 <label class="col-sm-12 col-md-2 col-form-label">Name</label>
                 <div class="col-sm-12 col-md-10">
-                    <input value="" class="form-control" name="name" type="text" placeholder="">
+                    <input required value="" class="form-control" name="name" type="text" placeholder="">
                 </div>
             </div>
 
             <div class="form-group row">
                 <label class="col-sm-12 col-md-2 col-form-label">Description</label>
                 <div class="col-sm-12 col-md-10">
-                    <input value="" class="form-control" name="description" type="text" placeholder="">
+                    <input required value="" class="form-control" name="description" type="text" placeholder="">
                 </div>
             </div>
 
             <div class="form-group row">
                 <label class="col-sm-12 col-md-2 col-form-label">Project</label>
                 <div class="col-sm-12 col-md-10">
-                    <select class="form-control" name="project_id">
+                    <select required class="form-control" name="project_id">
                         @foreach($projects as $project)
                         <option
                         
@@ -82,7 +82,7 @@
             <div class="form-group row">
                 <label class="col-sm-12 col-md-2 col-form-label">Status</label>
                 <div class="col-sm-12 col-md-10">
-                    <select class="form-control" name="status">
+                    <select required class="form-control" name="status">
                         <option value="todo">Todo</option>
                         <option value="in_progress">In Progress</option>
                         <option value="done">Done</option>

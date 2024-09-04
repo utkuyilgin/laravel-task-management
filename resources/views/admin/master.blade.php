@@ -185,7 +185,7 @@
 	// public/js/fetchData.js
 	$(document).ready(function () {
 		function fetchData(config) {
-			const { endpoint, tableId, tableBodyId, columns } = config;
+			const { endpoint, tableId, columns } = config;
 			const table = $(`#${tableId}`).DataTable();
 
 			$.ajax({
@@ -193,32 +193,32 @@
 				method: 'GET',
 				success: function (response) {
 					const data = response.data || response;
-					
+
 					if (!Array.isArray(data)) {
 						console.error('Expected an array of data, but received:', data);
 						return;
 					}
 
-					const rows = data.map(item => {
-						let row = '<tr>';
-						columns.forEach(column => {
-							const value = typeof column.render === 'function' 
-								? column.render(item)
-								: item[column.key];
-							row += `<td>${value}</td>`;
-						});
-						row += '</tr>';
-						return row;
-					}).join('');
+					// Clear existing data in the table
+					table.clear();
 
-					$(`#${tableBodyId}`).html(rows);
-					table.rows.add($(`#${tableBodyId}`).find('tr')).draw();
+					// Generate rows and add to the table
+					const rows = data.map(item => {
+						return columns.map(col => {
+							return typeof col.render === 'function' ? col.render(item) : item[col.key];
+						});
+					});
+
+					// Add new rows to the table
+					table.rows.add(rows).draw();
 				},
 				error: function (xhr) {
 					console.error('Error fetching data:', xhr);
+					toastr.error('Error fetching data');
 				}
 			});
 		}
+
 
 		function postData(config) {
 			const { endpoint, data, redirect } = config;
@@ -236,8 +236,23 @@
 					}
 				},
 				error: function (xhr) {
-					console.error('Error posting data:', xhr);
+									
+					// Ensure xhr.responseJSON.errors is an array
+					const errors = xhr.responseJSON.errors || [];
+					console.log(errors);
+					if (Array.isArray(errors)) {
+						errors.forEach(error => {
+							console.log(error);
+							toastr.error(error);
+						});
+					} else {
+						let errorArray = Object.values(errors);
+						errorArray.forEach(error => {
+							toastr.error(error);
+						});
+					}
 				}
+
 			});
 		}
 		
@@ -260,18 +275,38 @@
 				},
 				error: function (xhr) {
 					console.error('Error updating data:', xhr);
+					toastr.error('Error updating data');
 				}
 			});
 		}
+		
+		function deleteData(config) {
+        const { endpoint, id, fetchConfig } = config;
 
-		window.confirmDelete = function (id, endpoint) {
-			if (confirm("Are you sure you want to delete this item?")) {
-				window.location.href = `${endpoint.replace('/fetch', '/delete')}/${id}`;
-			}
-		};
+        $.ajax({
+            url: `${endpoint}/${id}`,
+            method: 'POST',
+            success: function (response) {
+                toastr.success(response.message);
+                
+                // Re-fetch and redraw the table
+                if (fetchConfig) {
+                    fetchData(fetchConfig);
+                }
+            },
+            error: function (xhr) {
+                console.error('Error deleting data:', xhr);
+                toastr.error('Error deleting data');
+            }
+        });
+    }
+
+
+		
 		window.fetchData = fetchData;
 		window.postData = postData;
 		window.updateData = updateData;
+		window.deleteData = deleteData;
 	});
 
 	function beep() {
@@ -282,11 +317,7 @@
 
 	window.Echo.channel('laravel_database_new-task')
     .listen('NewTask', (e) => {
-    
         var data = e.data;
-
-		
-        
 
         let message = 'New task has been created';
 
@@ -295,7 +326,7 @@
 
         
             data.created_at = moment(data.created_at).format('MMMM Do YYYY, h:mm:ss a');
-console.log(data);
+
 			var tr = [
                 data.name,
 				data.project.name,

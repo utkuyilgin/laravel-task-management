@@ -47,14 +47,14 @@
             <div class="form-group row">
                 <label class="col-sm-12 col-md-2 col-form-label">Name</label>
                 <div class="col-sm-12 col-md-10">
-                    <input class="form-control" name="name" type="text" placeholder="">
-                </div>
+                    <input required class="form-control" name="name" type="text" placeholder="">
+                </div> 
             </div>
 
             <div class="form-group row">
                 <label class="col-sm-12 col-md-2 col-form-label">Description</label>
                 <div class="col-sm-12 col-md-10">
-                    <textarea class="form-control" name="description" rows="5"></textarea>
+                    <textarea required class="form-control" name="description" rows="5"></textarea>
                 </div>
             </div>
 

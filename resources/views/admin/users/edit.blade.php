@@ -50,21 +50,21 @@
             <div class="form-group row">
                 <label class="col-sm-12 col-md-2 col-form-label">Name</label>
                 <div class="col-sm-12 col-md-10">
-                    <input value="{{$user->name}}" class="form-control" name="name" type="text" placeholder="">
+                    <input required value="{{$user->name}}" class="form-control" name="name" type="text" placeholder="">
                 </div>
             </div>
 
             <div class="form-group row">
                 <label class="col-sm-12 col-md-2 col-form-label">Email</label>
                 <div class="col-sm-12 col-md-10">
-                    <input value="{{$user->email}}" class="form-control" name="email" type="email" placeholder="">
+                    <input required value="{{$user->email}}" class="form-control" name="email" type="email" placeholder="">
                 </div>
             </div>
 
             <div class="form-group row">
                 <label class="col-sm-12 col-md-2 col-form-label">Roles</label>
                 <div class="col-sm-12 col-md-10">
-                    <select class="custom-select col-12 js-example-basic-multiple" name="role_ids[]" multiple="multiple">
+                    <select required class="custom-select col-12 js-example-basic-multiple" name="role_ids[]" multiple="multiple">
                         
                         @foreach($roles as $role)
                         <option value="{{$role->id}}" 
