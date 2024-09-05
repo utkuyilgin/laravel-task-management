@@ -19,9 +19,12 @@
                         </ol>
                     </nav>
                     <div class="pb-20 mt-15">
+                        @can('create task')
                         <a href="{{route('admin.task.create', $project->id)}}" class="btn btn-primary btn-sm backbutton" role="button" aria-pressed="true">
                             <span class="icon-copy ti-plus"></span>
-                            Add Task</a>
+                            Add Task</a>    
+                        @endcan
+                        
                     </div>
                 </div>
             </div>
@@ -70,12 +73,17 @@ $(document).ready(function () {
             { 
                 key: 'id', 
                 render: item => `
+                @can('edit task')
                     <a href="{{ url('dashboard/edit/task') }}/${item.id}" class="badge badge-primary">
                         <i class="bi-pencil"></i> Edit
                     </a>
+                @endcan
+                @can('delete task')
                     <a href="#" class="badge badge-danger" onclick="confirmDelete(${item.id}, '{{ url('api/fetchTasks') }}')">
                         <i class="bi-trash"></i> Delete
                     </a>
+                @endcan
+                   
                 ` 
             }
         ]
