@@ -105,12 +105,16 @@ $(document).ready(function () {
                         { 
                             key: 'id', 
                             render: item => `
+                            @can('edit task')
                                 <a href="{{ url('dashboard/edit/task') }}/${item.id}" class="badge badge-primary">
-                                    <i class="bi-pencil"></i> Edit
+                                        <i class="bi-pencil"></i> Edit
                                 </a>
+                            @endcan
+                            @can('delete task')
                                 <a href="#" class="badge badge-danger" onclick="confirmDelete(${item.id}, '{{ url('api/fetchTasks') }}')">
                                     <i class="bi-trash"></i> Delete
-                                </a>
+                                </a>    
+                            @endcan
                             ` 
                         }
                     ]
